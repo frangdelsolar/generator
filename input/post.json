@@ -1,0 +1,23 @@
+{
+  "model": "post",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "string"
+    },
+    {
+      "name": "author",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "date",
+      "type": "Date"
+    }
+  ]
+}
