@@ -13,6 +13,7 @@ const {
     OUTPUT_DIR,
     README_PATH,
     SAMPLE_FILE_NAME,
+    MAIN_FILE_NAME,
 } = require("./config");
 
 /**
@@ -38,6 +39,13 @@ async function copySampleFile() {
     logger.info("Copying sample file...");
     const samplePath = path.join(__dirname, "samples", SAMPLE_FILE_NAME);
     const targetPath = path.join(INPUT_DIR, SAMPLE_FILE_NAME);
+    await fs.promises.copyFile(samplePath, targetPath);
+}
+
+async function copyMainFile() {
+    logger.info("Copying sample file...");
+    const samplePath = path.join(__dirname, "samples", MAIN_FILE_NAME);
+    const targetPath = path.join(CODEGEN_DIR, MAIN_FILE_NAME);
     await fs.promises.copyFile(samplePath, targetPath);
 }
 

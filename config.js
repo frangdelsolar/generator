@@ -11,6 +11,11 @@ const SAMPLE_FILE_NAME = "sample.json";
 const CODEGEN_DIR = "codeGen";
 
 /**
+ * @constant {string} MAIN_FILE_NAME - Name of the main file to be copied.
+ */
+const MAIN_FILE_NAME = "main.js";
+
+/**
  * @constant {string} INPUT_DIR - Path to the directory where the sample file is copied.
  */
 const INPUT_DIR = path.join(CODEGEN_DIR, "input");
