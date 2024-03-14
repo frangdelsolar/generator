@@ -1,1 +1,3 @@
 /codeGen*
+/tests*
+/node_modules*

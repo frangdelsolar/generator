@@ -1,0 +1,23 @@
+{
+    "model": "sample",
+    "fields": [
+        {
+            "name": "title",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "content",
+            "type": "string"
+        },
+        {
+            "name": "isPublished",
+            "type": "boolean",
+            "default": true
+        },
+        {
+            "name": "date",
+            "type": "Date"
+        }
+    ]
+}

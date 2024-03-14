@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/frangdelsolar/generator/issues"
   },
-  "homepage": "https://github.com/frangdelsolar/generator#readme"
+  "homepage": "https://github.com/frangdelsolar/generator#readme",
+  "dependencies": {
+    "winston": "^3.12.0"
+  }
 }
