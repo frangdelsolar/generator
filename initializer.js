@@ -43,7 +43,7 @@ async function copySampleFile() {
 }
 
 async function copyMainFile() {
-    logger.info("Copying sample file...");
+    logger.info("Copying main file...");
     const samplePath = path.join(__dirname, "samples", MAIN_FILE_NAME);
     const targetPath = path.join(CODEGEN_DIR, MAIN_FILE_NAME);
     await fs.promises.copyFile(samplePath, targetPath);
@@ -67,6 +67,7 @@ async function init() {
     logger.info("Initializing generator...");
     await initFolderTree();
     await copySampleFile();
+    await copyMainFile();
     await printReadme();
 }
 

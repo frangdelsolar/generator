@@ -36,4 +36,5 @@ module.exports = {
     INPUT_DIR,
     OUTPUT_DIR,
     README_PATH,
+    MAIN_FILE_NAME,
 };
