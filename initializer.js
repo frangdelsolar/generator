@@ -6,6 +6,7 @@
 
 const fs = require("fs");
 const logger = require("./services/logger");
+const path = require("path");
 const {
     CODEGEN_DIR,
     INPUT_DIR,
