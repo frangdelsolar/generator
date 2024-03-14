@@ -4,11 +4,8 @@ const schemaService = require("./schema");
 const resolverService = require("./resolver");
 const tidefsService = require("./typedefs");
 
-// Variables
-const inputFolder = "input";
-
 function main() {
-  const allFileData = readAllFilesInFolder(inputFolder);
+  const allFileData = readAllFilesInFolder("codeGen/input");
 
   const postData = allFileData["post.json"];
 

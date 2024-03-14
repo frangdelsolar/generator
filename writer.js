@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const folderPath = path.resolve(__dirname, "output");
+const folderPath = "codeGen/output";
 
 function writeObjectToFile(data, filename) {
   if (!fs.existsSync(folderPath)) {
