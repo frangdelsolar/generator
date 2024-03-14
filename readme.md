@@ -12,7 +12,6 @@ This code generator package automates creating essential files (resolvers, schem
 1. Install the package using npm:
 
 ```
-Bash
 npm install https://github.com/frangdelsolar/generator.git
 ```
 
@@ -24,7 +23,6 @@ npm install https://github.com/frangdelsolar/generator.git
    - Provide the following structure:
 
 ```
-JSON
 {
     "model": "post",
     "fields": [
@@ -55,7 +53,6 @@ JSON
    - Execute the following command in your terminal, replacing server/hanzi with the correct root path to your project:
 
 ```
-Bash
 npm run generate --root=server/hanzi
 ```
 
@@ -88,7 +85,6 @@ The package will create the following files within app/codeGen/output:
 Once you've moved and integrated the generated files, you can optionally delete the input and output directories:
 
 ```
-Bash
 rm -rf app/codeGen/input app/codeGen/output
 ```
 
