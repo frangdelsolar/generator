@@ -8,21 +8,21 @@ const tidefsService = require("./typedefs");
 const inputFolder = "input";
 
 function main() {
-  // const allFileData = readAllFilesInFolder(inputFolder);
+  const allFileData = readAllFilesInFolder(inputFolder);
 
-  // const postData = allFileData["post.json"];
+  const postData = allFileData["post.json"];
 
-  // const schema = schemaService.createSchema(postData);
+  const schema = schemaService.createSchema(postData);
 
-  // writeObjectToFile(schema, `${postData.model}Schema.js`);
+  writeObjectToFile(schema, `${postData.model}Schema.js`);
 
-  // const resolversString = resolverService.generateCrudResolvers(postData.model);
-  // writeObjectToFile(resolversString, `${postData.model}Resolvers.js`);
+  const resolversString = resolverService.generateCrudResolvers(postData.model);
+  writeObjectToFile(resolversString, `${postData.model}Resolvers.js`);
 
-  // const typeDefs = tidefsService.generateTypeDefs(postData);
-  // writeObjectToFile(typeDefs, `${postData.model}TypeDefs.graphql`);
+  const typeDefs = tidefsService.generateTypeDefs(postData);
+  writeObjectToFile(typeDefs, `${postData.model}TypeDefs.graphql`);
 
-  console.log("generator")
+  console.log("generator v2");
 }
 
-main()
+main();
