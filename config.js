@@ -23,17 +23,17 @@ const INPUT_DIR = path.join(CODEGEN_DIR, "input");
 /**
  * @constant {string} MODELS_DIR - Path to the directory where generated code will be placed.
  */
-const MODELS_DIR = path.join(__dirname, "models");
+const MODELS_DIR = "models";
 
 /**
  * @constant {string} RESOLVERS_DIR - Path to the directory where generated code will be placed.
  */
-const TYPEDEFS_DIR = path.join(__dirname, "graphql", "typedefs");
+const TYPEDEFS_DIR = path.join("graphql", "typedefs");
 
 /**
  * @constant {string} TYPEDEFS_DIR - Path to the directory where generated code will be placed.
  */
-const RESOLVERS_DIR = path.join(__dirname, "graphql", "resolvers");
+const RESOLVERS_DIR = path.join("graphql", "resolvers");
 
 /**
  * @constant {string} README_PATH - Path to the directory where generated code will be placed.
