@@ -10,11 +10,13 @@ const { camelCase } = require("./helpers");
  * @returns {string} The Mongoose field definition string.
  */
 function createFieldDefinition(field) {
-    const { name, type, required = false } = field;
+    const { name, type, required = false, unique } = field;
     const requiredString = required ? ", required: true" : "";
+    const uniqueString = unique ? ", unique: true" : "";
+
     return `  ${name}: { type: ${mapJsonTypeToSchemaType(
         type
-    )} ${requiredString} },`;
+    )} ${requiredString} ${uniqueString}},`;
 }
 
 /**
@@ -59,6 +61,21 @@ const Schema = mongoose.Schema;
 
 const ${modelName}Schema = new Schema({
 ${fieldDefinitions.join("\n")}
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  updatedBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  updatedAt: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("${capitalizedName}", ${modelName}Schema);

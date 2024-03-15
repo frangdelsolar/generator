@@ -21,7 +21,12 @@ function generateTypeDefs(objectDefinition) {
     const modelName = objectDefinition.model;
     const capitalizedModelName = capitalizeTypeName(modelName);
 
-    const fieldTypeDefs = objectDefinition.fields.map((field) => {
+    // Filter out the "id" field from input fields
+    const inputFields = objectDefinition.fields.filter(
+        (field) => field.name.toLowerCase() !== "id"
+    );
+
+    const fieldTypeDefs = inputFields.map((field) => {
         const typeName = mapJsonTypeToGraphQLType(field.type);
         const exclamationMark = field.required ? "!" : ""; // Add "!" for required fields
         return `  ${field.name.replace(
@@ -32,32 +37,35 @@ function generateTypeDefs(objectDefinition) {
 
     const typeDefs = `
 type ${capitalizedModelName} {
+  _id: ID!
   ${fieldTypeDefs.join("\n  ")}
+
+  createdAt: String
+  createdBy: ID
+
+  updatedAt: String
+  updatedBy: ID
 }
 
 input ${capitalizedModelName}Input {
   ${fieldTypeDefs.join("\n  ")}
 }
 
-type PageInfo {
+type ${capitalizedModelName}Pagination {
     page: Int!
+    limit: Int!
+    hasNextPage: Boolean
     totalCount: Int!
-    hasNextPage: Boolean!
-    }
-
-type ${capitalizedModelName}Connection {
-    pageInfo: PageInfo!
-    edges: [${capitalizedModelName}Edge!]!
 }
 
-type ${capitalizedModelName}Edge {
-    node: ${capitalizedModelName}
-    cursor: String!
+type ${capitalizedModelName}Connection {
+    pageInfo: ${capitalizedModelName}Pagination!
+    data: [${capitalizedModelName}]!
 }
 
 type Query {
     get${capitalizedModelName}ById(id: ID!): ${capitalizedModelName}
-    all${capitalizedModelName}s(page: Int = 1, limit: Int = 10): ${capitalizedModelName}Connection!
+    getAll${capitalizedModelName}s(page: Int = 1, limit: Int = 10): ${capitalizedModelName}Connection!
 }
 
 

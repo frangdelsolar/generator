@@ -23,7 +23,7 @@ function generateResolvers(modelName, schemaData = {}) {
     const pluralName = pluralize(singularName);
 
     const template = `
-const ${singularName} = require('./${modelPath}Schema');
+const ${singularName} = require('../../models/${modelPath}Schema');
 
 module.exports = {
   Query: {
@@ -40,31 +40,31 @@ module.exports = {
         const results = await ${singularName}.find().skip(skip).limit(limit);
         const total = await ${singularName}.countDocuments();
 
-        const pageInfo = {
-          page,
-          totalCount: total,
-          hasNextPage: total > (page * limit),
-        };
-
-        const edges = results.map((${modelName}) => ({
-          node: ${modelName},
-          cursor: someCursorValue(${modelName}), // Implement cursor generation logic
-        }));
-
         return {
-          pageInfo,
-          edges,
+          pageInfo: {
+            page,
+            limit,
+            totalCount: total,
+            hasNextPage: total > (page * limit),
+          },
+          data: results,
         };
       } catch (error) {
         throw error;
-      },
+      }
+    }
   },
   Mutation: {
     create${singularName}: async (_, { input }) => {
       try {
         const new${singularName} = new ${singularName}(input);
         await new${singularName}.save();
-        return new${singularName};
+
+        return {
+          ...new${singularName}._doc,
+          _id: new${singularName}.id
+        };
+
       } catch (error) {
         throw error;
       }
