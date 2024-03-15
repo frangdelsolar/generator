@@ -10,7 +10,6 @@ const path = require("path");
 const {
     CODEGEN_DIR,
     INPUT_DIR,
-    OUTPUT_DIR,
     README_PATH,
     SAMPLE_FILE_NAME,
     MAIN_FILE_NAME,
@@ -26,7 +25,6 @@ async function initFolderTree() {
     await Promise.all([
         fs.promises.mkdir(CODEGEN_DIR, { recursive: true }),
         fs.promises.mkdir(INPUT_DIR, { recursive: true }),
-        fs.promises.mkdir(OUTPUT_DIR, { recursive: true }),
     ]);
 }
 
@@ -58,6 +56,18 @@ async function printReadme() {
     }
 }
 
+async function updateScriptsInPackage() {
+    logger.info("Updating scripts in package.json...");
+    const packagePath = path.join(, "package.json");
+    const content = await fs.promises.readFile(packagePath, "utf8");
+    const packageJson = JSON.parse(content);
+
+    packageJson.scripts["gen:init"] = "node node_modules/generator/index.js";
+    packageJson.scripts["gen:run"] = "node codeGen/main.js";
+
+    await fs.promises.writeFile(packagePath, JSON.stringify(packageJson, null, 4));
+}
+
 /**
  * @function init
  * @description Initializes the code generator by creating the folder structure and optionally copying a sample file.
@@ -68,6 +78,7 @@ async function init() {
     await initFolderTree();
     await copySampleFile();
     await copyMainFile();
+    await updateScriptsInPackage();
     await printReadme();
 }
 
