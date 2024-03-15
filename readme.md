@@ -76,12 +76,11 @@ The package will create the following files within app/codeGen/output:
 
 **Integration**
 
-1. Move the Generated Files:
+1.  Files will be placed
 
-    - Manually move the generated files from app/codeGen/output to their appropriate locations within your project structure. For instance:
-        - `postResolvers.js`: Move it to your resolvers directory.
-        - `postSchema.js`: Move it to your Mongoose schema files.
-        - `postTypeDefs.graphql`: Move it to your file containing GraphQL schema definitions.
+        - `graphql/resolvers/postResolvers.js`: Move it to your resolvers directory.
+        - `models/postSchema.js`: Move it to your Mongoose schema files.
+        - `graphql/typedefs/postTypeDefs.graphql`: Move it to your file containing GraphQL schema definitions.
 
 **Additional Notes:**
 

@@ -69,8 +69,13 @@ module.exports = {
         throw error;
       }
     },
-    update${singularName}: async (_, { id, input }) => {
+    update${singularName}: async (_, { id, input }, { headers }) => {
       try {
+        const userId = headers.userId;
+        input.updatedBy = userId;
+
+        input.updatedAt = new Date();
+
         return await ${singularName}.findByIdAndUpdate(id, input, { new: true });
       } catch (error) {
         throw error;
