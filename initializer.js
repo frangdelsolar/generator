@@ -71,6 +71,18 @@ async function updateScriptsInPackage() {
     );
 }
 
+async function addSkipToGitIgnoreFile() {
+    logger.info("Adding codeGen to .gitignore...");
+    const gitIgnorePath = ".gitignore";
+    const content = await fs.promises.readFile(gitIgnorePath, "utf8");
+    const gitIgnore = content.split("\n");
+    gitIgnore.push("/codeGen*");
+    await fs.promises.writeFile(
+        gitIgnorePath,
+        gitIgnore.filter((line) => line.trim() !== "").join("\n")
+    );
+}
+
 /**
  * @function init
  * @description Initializes the code generator by creating the folder structure and optionally copying a sample file.
@@ -82,6 +94,7 @@ async function init() {
     await copySampleFile();
     await copyMainFile();
     await updateScriptsInPackage();
+    await addSkipToGitIgnoreFile();
     await printReadme();
 }
 
