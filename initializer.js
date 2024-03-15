@@ -58,14 +58,17 @@ async function printReadme() {
 
 async function updateScriptsInPackage() {
     logger.info("Updating scripts in package.json...");
-    const packagePath = path.join(, "package.json");
+    const packagePath = "package.json";
     const content = await fs.promises.readFile(packagePath, "utf8");
     const packageJson = JSON.parse(content);
 
     packageJson.scripts["gen:init"] = "node node_modules/generator/index.js";
     packageJson.scripts["gen:run"] = "node codeGen/main.js";
 
-    await fs.promises.writeFile(packagePath, JSON.stringify(packageJson, null, 4));
+    await fs.promises.writeFile(
+        packagePath,
+        JSON.stringify(packageJson, null, 4)
+    );
 }
 
 /**
