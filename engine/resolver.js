@@ -55,8 +55,10 @@ module.exports = {
     }
   },
   Mutation: {
-    create${singularName}: async (_, { input }) => {
+    create${singularName}: async (_, { input }, { headers }) => {
       try {
+        const userId = headers.userId;
+        input.updatedBy = userId;
         const new${singularName} = new ${singularName}(input);
         await new${singularName}.save();
 
