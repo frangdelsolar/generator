@@ -1,5 +1,3 @@
-const { camelCase } = require("./helpers"); // Assuming helper function exists
-
 function capitalizeTypeName(typeName) {
     return typeName.charAt(0).toUpperCase() + typeName.slice(1);
 }
@@ -41,10 +39,28 @@ input ${capitalizedModelName}Input {
   ${fieldTypeDefs.join("\n  ")}
 }
 
-type Query {
-  get${capitalizedModelName}ById(id: ID!): ${capitalizedModelName}
-  getAll${capitalizedModelName}s: [${capitalizedModelName}]!
+type PageInfo {
+    page: Int!
+    totalCount: Int!
+    hasNextPage: Boolean!
+    }
+
+type ${capitalizedModelName}Connection {
+    pageInfo: PageInfo!
+    edges: [${capitalizedModelName}Edge!]!
 }
+
+type ${capitalizedModelName}Edge {
+    node: ${capitalizedModelName}
+    cursor: String!
+}
+
+type Query {
+    get${capitalizedModelName}ById(id: ID!): ${capitalizedModelName}
+    all${capitalizedModelName}s(page: Int = 1, limit: Int = 10): ${capitalizedModelName}Connection!
+}
+
+
 
 type Mutation {
   create${capitalizedModelName}(input: ${capitalizedModelName}Input!): ${capitalizedModelName}

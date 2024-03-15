@@ -39,11 +39,25 @@ module.exports = {
         const skip = (page - 1) * limit;
         const results = await ${singularName}.find().skip(skip).limit(limit);
         const total = await ${singularName}.countDocuments();
-        return { results, total };
+
+        const pageInfo = {
+          page,
+          totalCount: total,
+          hasNextPage: total > (page * limit),
+        };
+
+        const edges = results.map((${modelName}) => ({
+          node: ${modelName},
+          cursor: someCursorValue(${modelName}), // Implement cursor generation logic
+        }));
+
+        return {
+          pageInfo,
+          edges,
+        };
       } catch (error) {
         throw error;
-      }
-    },
+      },
   },
   Mutation: {
     create${singularName}: async (_, { input }) => {
