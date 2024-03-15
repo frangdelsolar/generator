@@ -6,6 +6,8 @@ const tidefsService = require("./typedefs");
 
 const logger = require("../services/logger");
 
+const { TYPEDEFS_DIR, RESOLVERS_DIR, MODELS_DIR } = require("../config");
+
 async function runner() {
     logger.info("Running code generator engine...");
 
@@ -16,26 +18,18 @@ async function runner() {
         const schema = schemaService.createSchema(data);
         const resolversString = generateResolvers(data.model);
         const typeDefs = tidefsService.generateTypeDefs(data);
-        writeObjectToFile(schema, `${data.model}Schema.js`);
-        writeObjectToFile(resolversString, `${data.model}Resolvers.js`);
-        writeObjectToFile(typeDefs, `${data.model}TypeDefs.graphql`);
+        writeObjectToFile(schema, MODELS_DIR, `${data.model}Schema.js`);
+        writeObjectToFile(
+            resolversString,
+            RESOLVERS_DIR,
+            `${data.model}Resolvers.js`
+        );
+        writeObjectToFile(
+            typeDefs,
+            TYPEDEFS_DIR,
+            `${data.model}TypeDefs.graphql`
+        );
     });
-
-    // const postData = allFileData["post.json"];
-
-    // const schema = schemaService.createSchema(postData);
-
-    // writeObjectToFile(schema, `${postData.model}Schema.js`);
-
-    // const resolversString = resolverService.generateCrudResolvers(
-    //     postData.model
-    // );
-    // writeObjectToFile(resolversString, `${postData.model}Resolvers.js`);
-
-    // const typeDefs = tidefsService.generateTypeDefs(postData);
-    // writeObjectToFile(typeDefs, `${postData.model}TypeDefs.graphql`);
-
-    // console.log("generator v2");
 }
 
 module.exports = runner;

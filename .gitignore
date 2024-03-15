@@ -1,3 +1,5 @@
 /codeGen*
 /tests*
 /node_modules*
+/graphql*
+/models*

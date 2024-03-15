@@ -21,9 +21,19 @@ const MAIN_FILE_NAME = "main.js";
 const INPUT_DIR = path.join(CODEGEN_DIR, "input");
 
 /**
- * @constant {string} OUTPUT_DIR - Path to the directory where generated code will be placed.
+ * @constant {string} MODELS_DIR - Path to the directory where generated code will be placed.
  */
-const OUTPUT_DIR = path.join(CODEGEN_DIR, "output");
+const MODELS_DIR = path.join(__dirname, "models");
+
+/**
+ * @constant {string} RESOLVERS_DIR - Path to the directory where generated code will be placed.
+ */
+const TYPEDEFS_DIR = path.join(__dirname, "graphql", "typedefs");
+
+/**
+ * @constant {string} TYPEDEFS_DIR - Path to the directory where generated code will be placed.
+ */
+const RESOLVERS_DIR = path.join(__dirname, "graphql", "resolvers");
 
 /**
  * @constant {string} README_PATH - Path to the directory where generated code will be placed.
@@ -34,7 +44,9 @@ module.exports = {
     SAMPLE_FILE_NAME,
     CODEGEN_DIR,
     INPUT_DIR,
-    OUTPUT_DIR,
+    MODELS_DIR,
+    TYPEDEFS_DIR,
+    RESOLVERS_DIR,
     README_PATH,
     MAIN_FILE_NAME,
 };
