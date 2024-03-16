@@ -44,7 +44,7 @@ module.exports = {
       try {
         const skip = (page - 1) * limit;
         const query = { createdBy: user._id, ...filter };
-        const results = await ${singularName}.find(query).skip(skip).limit(limit);
+        const results = await ${singularName}.find(query).skip(skip).limit(limit).sort({ createdAt: -1 });
         const total = await ${singularName}.countDocuments(query);
 
         return {
