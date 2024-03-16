@@ -98,7 +98,11 @@ module.exports = {
         throw new Error('Unauthenticated');
       }
       try {
-        return await ${singularName}.findByIdAndDelete(id).where('createdBy').equals(user._id);
+        const deleted${singularName} =await ${singularName}.findByIdAndDelete(id).where('createdBy').equals(user._id);
+        return {
+          success: true,
+          resource: deleted${singularName}
+        };
       } catch (error) {
         throw error;
       }
