@@ -27,18 +27,25 @@ const ${singularName} = require('../../models/${modelPath}Schema');
 
 module.exports = {
   Query: {
-    get${singularName}ById: async (_, { id }) => {
+    get${singularName}ById: async (_, { id }, { isAuth, user }) => {
+      if (!isAuth) {
+        throw new Error('Unauthenticated');
+      }
       try {
-        return await ${singularName}.findById(id);
+        return await ${singularName}.findById(id).where('createdBy').equals(user._id);
       } catch (error) {
         throw error;
       }
     },
-    getAll${pluralName}: async (_, { page = 1, limit = 10 }) => {
+    getAll${pluralName}: async (_, { page = 1, limit = 10, filter = {} }, { isAuth, user }) => {
+      if (!isAuth) {
+        throw new Error('Unauthenticated');
+      }
       try {
         const skip = (page - 1) * limit;
-        const results = await ${singularName}.find().skip(skip).limit(limit);
-        const total = await ${singularName}.countDocuments();
+        const query = { createdBy: user._id, ...filter };
+        const results = await ${singularName}.find(query).skip(skip).limit(limit);
+        const total = await ${singularName}.countDocuments(query);
 
         return {
           pageInfo: {
@@ -55,10 +62,12 @@ module.exports = {
     }
   },
   Mutation: {
-    create${singularName}: async (_, { input }, { headers }) => {
+    create${singularName}: async (_, { input }, { isAuth, user }) => {
+      if (!isAuth) {
+        throw new Error('Unauthenticated');
+      }
       try {
-        const userId = headers.userId;
-        input.updatedBy = userId;
+        input.createdBy = user._id;
         const new${singularName} = new ${singularName}(input);
         await new${singularName}.save();
 
@@ -71,21 +80,25 @@ module.exports = {
         throw error;
       }
     },
-    update${singularName}: async (_, { id, input }, { headers }) => {
+    update${singularName}: async (_, { id, input }, { isAuth, user }) => {
+      if (!isAuth) {
+        throw new Error('Unauthenticated');
+      }
       try {
-        const userId = headers.userId;
-        input.updatedBy = userId;
-
+        input.updatedBy = user._id;
         input.updatedAt = new Date();
 
-        return await ${singularName}.findByIdAndUpdate(id, input, { new: true });
+        return await ${singularName}.findByIdAndUpdate(id, input, { new: true }).where('createdBy').equals(user._id);
       } catch (error) {
         throw error;
       }
     },
-    delete${singularName}: async (_, { id }) => {
+    delete${singularName}: async (_, { id }, { isAuth, user }) => {
+      if (!isAuth) {
+        throw new Error('Unauthenticated');
+      }
       try {
-        return await ${singularName}.findByIdAndDelete(id);
+        return await ${singularName}.findByIdAndDelete(id).where('createdBy').equals(user._id);
       } catch (error) {
         throw error;
       }
