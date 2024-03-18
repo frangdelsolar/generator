@@ -68,6 +68,7 @@ module.exports = {
       }
       try {
         input.createdBy = user._id;
+        input.createdAt = new Date().toISOString();
         const new${singularName} = new ${singularName}(input);
         await new${singularName}.save();
 
@@ -86,7 +87,7 @@ module.exports = {
       }
       try {
         input.updatedBy = user._id;
-        input.updatedAt = new Date();
+        input.updatedAt = new Date().toISOString();
 
         return await ${singularName}.findByIdAndUpdate(id, input, { new: true }).where('createdBy').equals(user._id);
       } catch (error) {
