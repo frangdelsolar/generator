@@ -63,7 +63,7 @@ const ${modelName}Schema = new Schema({
 ${fieldDefinitions.join("\n")}
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: new Date().toISOString(),
   },
   createdBy: {
     type: Schema.Types.ObjectId,
