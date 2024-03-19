@@ -56,7 +56,7 @@ type ${capitalizedModelName} {
     """
     ID of the user who created the ${modelName}.
     """  
-    createdBy: ID
+    createdBy: User
 
     """
     Date and time the ${modelName} was last updated. (Auto-generated on update)
@@ -66,7 +66,7 @@ type ${capitalizedModelName} {
     """
     ID of the user who last updated the ${modelName}.
     """  
-    updatedBy: ID
+    updatedBy: User
 }
 
 
